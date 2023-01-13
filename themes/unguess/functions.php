@@ -911,4 +911,4 @@ function disable_anonymous_api( $result ) {
 	}
 	return $result;
 };
-//add_filter( 'rest_authentication_errors', 'disable_anonymous_api' );
+add_filter( 'rest_authentication_errors', 'disable_anonymous_api' );
