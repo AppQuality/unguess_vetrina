@@ -15,9 +15,11 @@ const closeMegaMenu = event => {
 const showMegaMenu = event => {
     mmActive = event.target;
     mmActive.classList.add('mm-active');
-    const label = event.target.innerText.toLowerCase();
+    /*const label = event.target.innerText.toLowerCase();
     const rect = event.target.getBoundingClientRect();
-    const megaMenu = document.getElementById('menu-' + label);
+    const megaMenu = document.getElementById('menu-' + label);*/
+    const rect = event.target.getBoundingClientRect();
+    const megaMenu = document.getElementById('menu-services');
     megaMenu.classList.add('active');
     megaMenu.style.cssText = 'left: ' + rect.left + 'px';
     activeMenu = megaMenu;

@@ -9,7 +9,8 @@ const servicesFilterScript = () => {
             url: ajax.url,
             data: {
                 action: 'services_filter_callback',
-                useCaseId: event.target.value
+                useCaseId: event.target.value,
+				industryId: event.target.dataset.industry
             },
             beforeSend: () => {
                 const loader = document.createElement('div');
