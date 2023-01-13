@@ -1,2 +1,8 @@
 **/.DS_Store
 /uploads/
+languages/wpml/
+plugins/wordpress-seo/
+plugins/wpml-string-translation/
+themes/unguess/src/ajax/showcases-filter.js
+themes/unguess/src/components/list-post-carousel.js
+themes/unguess/src/pages/
