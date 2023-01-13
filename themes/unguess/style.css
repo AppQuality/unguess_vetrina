@@ -321,15 +321,15 @@ p > strong > img {
     font-weight: 600 !important;
 }
 .list-post-carousel .list-post-carousel-content {
-	width: max-content;
+	width: 100%;
     display: flex;
     gap: 1.5rem;
     transform: translateX(0);
 	transition: .2s all ease-in-out;
 }
 .list-post-carousel .list-post-carousel-content > * {
-    width: calc( (100vw - 4rem) / 3 - 3rem );
-    min-width: calc( (100vw - 4rem) / 3 - 3rem );
+    width: calc( 100% / 3 - 1rem );
+    min-width: calc( 100% / 3 - 1rem );
 }
 .list-post-carousel .list-post-scroll-trigger {
     position: absolute;
