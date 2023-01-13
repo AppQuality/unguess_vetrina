@@ -46,7 +46,7 @@ function unguess_scripts($type) {
 	}
 }
 
-/* Enable SVG */
+// ENABLE SVG
 add_filter('upload_mimes', 'cc_mime_types');
 function cc_mime_types($mimes) {
   $mimes['svg'] = 'image/svg+xml';
@@ -461,10 +461,13 @@ add_shortcode( 'use_cases_list', 'use_cases_list' );
 function use_cases_list() {
 	$my_current_lang = apply_filters( 'wpml_current_language', NULL );
 	$more = 'More Info';
+	$lang_slug = '';
 	if ( !strcmp($my_current_lang, 'it') ) {
 		$more = 'Più Info';
+		$lang_slug = '/it';
 	} else if ( !strcmp($my_current_lang, 'es') ) {
 		$more = 'Más información';
+		$lang_slug = '/es';
 	}
 	
 	$terms = get_terms( 
@@ -490,7 +493,7 @@ function use_cases_list() {
 		$html .= 	'<div class="use-case-card-description">';
 		$html .= 		'<p>' . $excerpt . '</p>';
 		$html .= 	'</div>';
-		$html .= 	'<a class="elementor-button-link elementor-button elementor-size-sm" href="/use-case/' . $term->slug . '">' . $more .' </a>';
+		$html .= 	'<a class="elementor-button-link elementor-button elementor-size-sm" href="' . $lang_slug . '/use-case/' . $term->slug . '">' . $more .' </a>';
 		$html .= '</div>';
 	}
 	$html .= '</div>';
@@ -885,7 +888,7 @@ function service_related_success_stories( $query ) {
 }
 add_action( 'elementor/query/service_related_success_stories', 'service_related_success_stories' );
 
-/* DISABLE ALL COMMENTS (ANY POST_TYPE) */
+// DISABLE ALL COMMENTS (ANY POST_TYPE)
 function disable_comments() {
    $post_types = get_post_types();
    foreach ($post_types as $post_type) {
@@ -897,7 +900,7 @@ function disable_comments() {
 }
 add_action('admin_init', 'disable_comments');
 
-/* DISABLE ANONYMOUS REST API */
+// DISABLE ANONYMOUS REST API
 function disable_anonymous_api( $result ) {
 	if ( $result === true || is_wp_error( $result ) ) {
 		return $result;
