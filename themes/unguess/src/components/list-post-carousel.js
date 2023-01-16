@@ -1,7 +1,7 @@
 const listPostCarousels = document.getElementsByClassName('list-post-carousel');
 
 Array.from(listPostCarousels).forEach( listPostCarousel => {
-        const listCards = listPostCarousel.querySelectorAll('.service-card' || '.showcase-card');
+        const listCards = listPostCarousel.querySelectorAll('.service-card, .showcase-card');
         const listPostCarouselTriggers = listPostCarousel.querySelectorAll('.list-post-scroll-trigger');
         const listPostCarouselContent = listPostCarousel.querySelector('.list-post-carousel-content');
         const listPostCarouselLength = listCards.length;
