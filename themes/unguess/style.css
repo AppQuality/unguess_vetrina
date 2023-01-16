@@ -751,6 +751,13 @@ img[src="https://unguess.io/wp-content/uploads/2022/01/lsit-check-icon.svg"] {
     display: inline-block;
 }
 
+/* BUTTON CARD ELEMENTOR BUG */
+@media screen and (max-width: 1024px) {
+	.elementor-widget-button + .elementor-widget-button {
+		margin-top: 0.5rem !important;
+	}
+}
+
 /* LOADER */
 .loader {
 	position: absolute;
