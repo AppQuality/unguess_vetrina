@@ -758,6 +758,15 @@ img[src="https://unguess.io/wp-content/uploads/2022/01/lsit-check-icon.svg"] {
 	}
 }
 
+/* LIST ICON ELEMENTO MOBILE ALIGN */
+.elementor-widget .elementor-icon-list-item,
+.elementor-widget .elementor-icon-list-item a {
+    align-items: start;
+}
+.elementor-widget .elementor-icon-list-item span i {
+    line-height: 1.5rem;
+}
+
 /* LOADER */
 .loader {
 	position: absolute;

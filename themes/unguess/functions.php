@@ -9,7 +9,7 @@ function unguess_styles() {
 	wp_enqueue_style( 'unguess-style',
         get_stylesheet_uri(),
 		array(),
-		'1.5.3'
+		'1.5.4'
 	);
 }
 
