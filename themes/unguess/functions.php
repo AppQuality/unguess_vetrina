@@ -808,6 +808,26 @@ function service_success_story($atts) {
 	return $html;
 }
 
+add_shortcode( 'whitejar', 'whitejar');
+function carousel_testimonials($atts) {
+	if (!$atts || !$atts['type']) {
+		return;
+	}
+	
+	$html = '';
+	$type = $atts['type'];
+	if ( is_user_logged_in() ) {
+		$html .= get_the_title();
+	
+//	if ($type == 'logo') {
+		$html .= '<div class="wihitejar-logo">';
+		$html .= 	'<img width="739" height="272" src="/wp-content/uploads/2023/01/logo-bianco.png" class="attachment-full size-full" alt="whitejar logo" loading="lazy" srcset="/wp-content/uploads/2023/01/logo-bianco.png 739w, /wp-content/uploads/2023/01/logo-bianco-300x110.png 300w" sizes="(max-width: 739px) 100vw, 739px">';
+		$html .= '<div/>';
+	//}
+	}
+	return $html;
+}
+
 // CALLBACK
 add_action( 'wp_ajax_nopriv_services_filter_callback', 'services_filter_callback' );
 add_action( 'wp_ajax_services_filter_callback', 'services_filter_callback' );
