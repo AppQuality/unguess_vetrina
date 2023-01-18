@@ -808,43 +808,6 @@ function service_success_story($atts) {
 	return $html;
 }
 
-add_shortcode( 'whitejar', 'whitejar');
-function whitejar($atts) {
-	if (!$atts || !$atts['type']) {
-		return;
-	}
-	
-	$html = '';
-	$type = $atts['type'];
-	if ( is_user_logged_in() ) {
-
-		$active_use_case = get_queried_object()->slug;
-		if ( preg_match('/cybersecurity|ciberseguridad/i', $active_use_case) ) {
-
-			if ($type == 'logo') {
-				$html .= '<div class="whitejar-logo">';
-				$html .= 	'<img width="739" height="272" src="/wp-content/uploads/2023/01/logo-bianco.png" class="attachment-full size-full" alt="whitejar logo" loading="lazy" srcset="/wp-content/uploads/2023/01/logo-bianco.png 739w, /wp-content/uploads/2023/01/logo-bianco-300x110.png 300w" sizes="(max-width: 739px) 100vw, 739px">';
-				$html .= '<div/>';
-			} else {
-				$html .= '<div class="elementor-element elementor-element-5b5f82c elementor-widget__width-auto elementor-widget elementor-widget-button" data-id="5b5f82c" data-element_type="widget" data-widget_type="button.default">';
-				$html .= 	'<div class="elementor-widget-container">';
-				$html .= 		'<div class="elementor-button-wrapper">';
-				$html .= 			'<a href="/get-started/" class="elementor-button-link elementor-button elementor-size-sm" role="button">';
-				$html .= 				'<span class="elementor-button-content-wrapper">';
-				$html .= 					'<span class="elementor-button-text">BOOK A DEMO</span>';
-				$html .= 				'</span>';
-				$html .= 			'</a>';
-				$html .= 		'</div>';
-				$html .= 	'</div>';
-				$html .=  '</div>';
-			}
-
-		}
-
-	}
-	return $html;
-}
-
 // CALLBACK
 add_action( 'wp_ajax_nopriv_services_filter_callback', 'services_filter_callback' );
 add_action( 'wp_ajax_services_filter_callback', 'services_filter_callback' );
