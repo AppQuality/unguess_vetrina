@@ -96,6 +96,12 @@ add_filter('get_the_archive_title', function ($title) {
     return $title;
 });
 
+function order_terms_by_priority($a, $b) {
+	$priority_a = get_field( 'use_case_priority', $a );
+	$priority_b = get_field( 'use_case_priority', $b );
+	return $priority_a > $priority_b;
+}
+
 // SHARED QUERY
 function get_services_list($use_case = null, $industry = null) {
 	$args = array(
@@ -476,6 +482,9 @@ function use_cases_list() {
 			'hide_empty' => false
 		) 
 	);
+	
+	usort( $terms, 'order_terms_by_priority' );
+
 	$html  = '<div class="use-cases-list">';
 	foreach ($terms as $term) {
 		$icon = get_field('taxonomy_icon', $term);
@@ -804,6 +813,43 @@ function service_success_story($atts) {
 			$html .= 	'</div>';
 			$html .= '</section>';
 		}
+	}
+	return $html;
+}
+
+add_shortcode( 'whitejar', 'whitejar');
+function whitejar($atts) {
+	if (!$atts || !$atts['type']) {
+		return;
+	}
+	
+	$html = '';
+	$type = $atts['type'];
+	if ( is_user_logged_in() ) {
+
+		$active_use_case = get_queried_object()->slug;
+		if ( preg_match('/cybersecurity|ciberseguridad/i', $active_use_case) ) {
+
+			if ($type == 'logo') {
+				$html .= '<div class="whitejar-logo">';
+				$html .= 	'<img width="739" height="272" src="/wp-content/uploads/2023/01/logo-bianco.png" class="attachment-full size-full" alt="whitejar logo" loading="lazy" srcset="/wp-content/uploads/2023/01/logo-bianco.png 739w, /wp-content/uploads/2023/01/logo-bianco-300x110.png 300w" sizes="(max-width: 739px) 100vw, 739px">';
+				$html .= '<div/>';
+			} else {
+				$html .= '<div class="elementor-element elementor-element-5b5f82c elementor-widget__width-auto elementor-widget elementor-widget-button" data-id="5b5f82c" data-element_type="widget" data-widget_type="button.default">';
+				$html .= 	'<div class="elementor-widget-container">';
+				$html .= 		'<div class="elementor-button-wrapper">';
+				$html .= 			'<a href="/get-started/" class="elementor-button-link elementor-button elementor-size-sm" role="button">';
+				$html .= 				'<span class="elementor-button-content-wrapper">';
+				$html .= 					'<span class="elementor-button-text">BOOK A DEMO</span>';
+				$html .= 				'</span>';
+				$html .= 			'</a>';
+				$html .= 		'</div>';
+				$html .= 	'</div>';
+				$html .=  '</div>';
+			}
+
+		}
+
 	}
 	return $html;
 }
