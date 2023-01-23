@@ -185,6 +185,7 @@ header .sub-menu.elementor-nav-menu--dropdown .elementor-sub-item {
 
 /* ARCHIVE TITLE */
 .elementor-element.elementor-element-ee33574 .elementor-heading-title {
+	text-transform: initial !important;
 	color: var( --e-global-color-bcd643c ) !important;
 }
 /* USE CASES LIST & SERVICES LIST */

@@ -419,11 +419,11 @@ add_shortcode( 'service_title', 'service_title' );
 function service_title($atts) {
 	if ( is_post_type_archive() ) {
 		$my_current_lang = apply_filters( 'wpml_current_language', NULL );
-		$title = 'WHAT DO YOU WANT TO UNGUESS?';
+		$title = 'What do you want to UNGUESS?';
 		if ( !strcmp($my_current_lang, 'it') ) {
-			$title = 'COSA VUOI SCOPRIRE CON UNGUESS?';
+			$title = 'Cosa vuoi scoprire con UNGUESS?';
 		} else if ( !strcmp($my_current_lang, 'es') ) {
-			$title = '¿QUÉ TE GUSTARÍA AVERIGUAR CON UNGUESS?';
+			$title = '¿qué te gustaría averiguar con UNGUESS?';
 		}
 	} else {
 		$title = get_the_archive_title();
