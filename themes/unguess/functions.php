@@ -9,7 +9,7 @@ function unguess_styles() {
 	wp_enqueue_style( 'unguess-style',
         get_stylesheet_uri(),
 		array(),
-		'1.5.4'
+		'1.5.91'
 	);
 }
 
@@ -213,14 +213,17 @@ function render_services_list($use_case = null, $industry = null, $remove_other_
 	$other_excerpt = 'Can’t find the type of study you’re looking for? Request a demo and we will show you the full potential of our platform!';
 	$other_cta = 'Get in touch';
 	$other_link = '/get-started/';
+	$more = 'More Info';
 	if ( !strcmp($my_current_lang, 'it') ) {
 		$other_title = 'Altro';
 		$other_excerpt = 'Non riesci a trovare quello che stai cercando? Richiedi una demo e ti mostreremo tutte le potenzialità della nostra piattaforma!';
 		$other_cta = 'Mettiti in contatto';
 		$other_link = '/get-started/';
+		$more = 'Più Info';
 	} else if ( !strcmp($my_current_lang, 'es') ) {
 		$other_title = 'Otro';
 		$other_excerpt = '¿No encuentras lo que buscas? ¡Solicita una demo y te mostraremos todo el potencial de nuestra plataforma!';
+		$more = 'Más información';
 		$other_cta = 'Ponerse en contacto';
 		$other_link = '/get-started/';
 	}
@@ -247,7 +250,7 @@ function render_services_list($use_case = null, $industry = null, $remove_other_
 			$html .= 	'<div class="service-card-description">';
 			$html .= 		'<p>' . get_the_excerpt() . '</p>';
 			$html .= 	'</div>';
-			$html .= 	'<a class="elementor-button-link elementor-button elementor-size-sm" href="' . get_permalink() . '">More Info</a>';
+			$html .= 	'<a class="elementor-button-link elementor-button elementor-size-sm" href="' . get_permalink() . '">' . $more . '</a>';
 			$html .= '</div>';
 		}
 	}
@@ -340,22 +343,25 @@ function render_partners_list($type = null) {
 			$the_query->the_post();
 			$image_id = get_post_thumbnail_id( get_the_ID() );
 			$image_url = get_the_post_thumbnail_url( get_the_ID() );
+			$partner_link = get_field('partner_link');
 			$alt_text = get_post_meta($image_id , '_wp_attachment_image_alt', true);
-			$html .= '<div class="partner-card">';
-			$html .= 	'<div class="partner-card-image">';
-			$html .= 		'<img src="' . $image_url . '" alt="' . $alt_text . '">';
+			$html .= '<a href="' . $partner_link . '" target="_blank" rel=”nofollow”>';
+			$html .= 	'<div class="partner-card">';
+			$html .= 		'<div class="partner-card-image">';
+			$html .= 			'<img src="' . $image_url . '" alt="' . $alt_text . '">';
+			$html .= 		'</div>';
+			$html .= 		'<div class="partner-card-title">';
+			$html .= 			'<h4>' . get_the_title() . '</h4>';
+			$html .= 		'</div>';
+			$html .= 		'<div class="partner-card-description">';
+			$html .= 			'<p>' . get_the_excerpt() . '</p>';
+			$html .= 		'</div>';
 			$html .= 	'</div>';
-			$html .= 	'<div class="partner-card-title">';
-			$html .= 		'<h4>' . get_the_title() . '</h4>';
-			$html .= 	'</div>';
-			$html .= 	'<div class="partner-card-description">';
-			$html .= 		'<p>' . get_the_excerpt() . '</p>';
-			$html .= 	'</div>';
-			$html .= '</div>';
+			$html .= '</a>';
 		}
 	}
 	
-	if ( $type == 'commercial' ) {
+	/*if ( $type == 'commercial' ) {
 		$html .= '<div class="partner-card contact-card">';
 		$html .= 	'<div class="partner-card-title">';
 		$html .= 		'<h3>' . $card_title . '</h3>';
@@ -365,7 +371,7 @@ function render_partners_list($type = null) {
 		$html .= 	'</div>';
 		$html .= 	'<a class="elementor-button-link elementor-button elementor-size-sm" href="' . $button_link . '">' . $button_text . '</a>';
 		$html .= '</div>';
-	}
+	}*/
 	
 	wp_reset_postdata();
 	return $html;
@@ -519,6 +525,17 @@ function use_cases_nav() {
 	);
 	
 	$active_use_case = get_queried_object()->term_id;
+	
+	$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+	$more = 'More Info';
+	$lang_slug = '/services';
+	if ( !strcmp($my_current_lang, 'it') ) {
+		$more = 'Più Info';
+		$lang_slug = '/it/servizi';
+	} else if ( !strcmp($my_current_lang, 'es') ) {
+		$more = 'Más información';
+		$lang_slug = '/es/servicios';
+	}
 
 	$html  = '<div class="use-cases-nav">';
 	foreach ($terms as $term) {
@@ -538,7 +555,7 @@ function use_cases_nav() {
 		$html .= 		'<p>' . $excerpt . '</p>';
 		$html .= 	'</div>';
 		if ( $active_use_case != $term->term_id ) {
-			$html .= 	'<a class="elementor-button-link elementor-button elementor-size-sm" href="/use-case/' . $term->slug . '">More Info</a>';
+			$html .= 	'<a class="elementor-button-link elementor-button elementor-size-sm" href="' . $lang_slug . '/use-case/' . $term->slug . '">' . $more . '</a>';
 		}
 		$html .= '</div>';
 	}
