@@ -473,13 +473,13 @@ add_shortcode( 'use_cases_list', 'use_cases_list' );
 function use_cases_list() {
 	$my_current_lang = apply_filters( 'wpml_current_language', NULL );
 	$more = 'More Info';
-	$lang_slug = '';
+	$lang_slug = '/services';
 	if ( !strcmp($my_current_lang, 'it') ) {
 		$more = 'Più Info';
-		$lang_slug = '/it';
+		$lang_slug = '/it/servizi';
 	} else if ( !strcmp($my_current_lang, 'es') ) {
 		$more = 'Más información';
-		$lang_slug = '/es';
+		$lang_slug = '/es/servicios';
 	}
 	
 	$terms = get_terms( 
