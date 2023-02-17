@@ -9,7 +9,7 @@ function unguess_styles() {
 	wp_enqueue_style( 'unguess-style',
         get_stylesheet_uri(),
 		array(),
-		'1.5.91'
+		'1.5.95'
 	);
 }
 
@@ -576,7 +576,7 @@ function list_post_carousel($atts) {
 		'1.0.3'
 	);
 	wp_localize_script( 
-		'services-filter', 
+		'list-post-carousel', 
 		'ajax',
 		array()
 	);
@@ -629,7 +629,7 @@ function services_list() {
 		'services-filter', 
 		get_stylesheet_directory_uri() . '/src/ajax/services-filter.js',
 		array(),
-		'1.0.2'
+		'1.0.34'
 	);
 	wp_localize_script( 
 		'services-filter', 
@@ -641,10 +641,13 @@ function services_list() {
 
 	$my_current_lang = apply_filters( 'wpml_current_language', NULL );
 	$all = 'All';
+	$filter_title = 'Filter by Use Case';
 	if ( !strcmp($my_current_lang, 'it') ) {
 		$all = 'Vedi tutto';
+		$filter_title = 'Filtra per Use Case';
 	} else if ( !strcmp($my_current_lang, 'es') ) {
 		$all = 'Todo';
+		$filter_title = 'Filtrar por Use Case';
 	}
 	$active_tax = get_queried_object();
 	$use_case = null;
@@ -661,12 +664,37 @@ function services_list() {
 			'hide_empty' => false
 		) 
 	);
-	$html  = '<div class="services-filter">';
+	
+	usort( $terms, 'order_terms_by_priority' );
+	
+	$html = '';
+		$html .= '<div class="services-select-title">';
+		$html .= 	'<h3>' . $filter_title . '</h3>';
+		$html .= '</div>';
+		$html .= '<div class="services-select-container">';
+		$html .= 	'<div class="services-selected">' . ($use_case ? $use_case : $all) . '</div>';
+		$html .= 	'<div class="services-option-container">';
+		foreach ($terms as $term) {
+			$checked = $term->term_id == $use_case ? ' checked' : '';
+			$html .= 		'<div class="services-option">';
+			$html .= 			'<input type="radio" name="use-case-mob" data-industry="' . $industry. '" data-name="' . $term->name . '" data-device="mobile" value="' . $term->term_id . '"' . $checked . '/>';
+			$html .= 			'<span>' . $term->name . '</span>';
+			$html .= 		'</div>';
+		}
+		$checked_all = !$use_case ? ' checked' : '';
+		$html .= 		'<div class="services-option">';
+		$html .= 			'<input type="radio" name="use-case-mob" data-industry="' . $industry. '" data-name="' . $all. '" data-device="mobile" value="0"' . $checked_all . '/>';
+		$html .= 			'<span>' . $all . '</span>';
+		$html .= 		'</div>';
+		$html .= 	'</div>';
+		$html .= '</div>';
+	
+	$html .= '<div class="services-filter">';
 	$html .= 	'<ul>';
 	foreach ($terms as $term) {
 		$checked = $term->term_id == $use_case ? ' checked' : '';
 		$html .= 	'<li>';
-		$html .= 		'<input type="radio" name="use-case" data-industry="' . $industry . '" value="' . $term->term_id . '"' . $checked . '>';
+		$html .= 		'<input type="radio" name="use-case" data-industry="' . $industry . '" data-name="' . $term->name . '" data-device="desk" value="' . $term->term_id . '"' . $checked . '>';
 		$html .= 		'<span>' . $term->name . '</span>';
 		$html .= 	'</li>';
 	}
@@ -674,7 +702,7 @@ function services_list() {
 	$html .= 	'<ul>';
 	$html .= 		'<li>';
 	$checked_all = !$use_case ? ' checked' : '';
-	$html .= 			'<input type="radio" name="use-case" data-industry="' . $industry . '" value="0"' . $checked_all . '>';
+	$html .= 			'<input type="radio" name="use-case" data-industry="' . $industry . '" data-name="' . $all . '" data-device="desk" value="0"' . $checked_all . '>';
 	$html .= 			'<span>' . $all . '</span>';
 	$html .= 		'</li>';
 	$html .= 	'</ul>';

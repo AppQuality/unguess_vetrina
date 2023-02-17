@@ -34,6 +34,7 @@ Text Domain:  unguess
 img.swiper-slide-image.swiper-lazy.swiper-lazy-loaded {
 	max-width: 100px;
 	height: 50px;
+	object-fit: contain !important;
 }
 .swiper-pagination-bullet {
 	width: 10px !important;
@@ -184,8 +185,10 @@ header .sub-menu.elementor-nav-menu--dropdown .elementor-sub-item {
 }
 
 /* ARCHIVE TITLE */
-.elementor-element.elementor-element-ee33574 .elementor-heading-title {
+.elementor-element.elementor-element-ee33574 h1.elementor-heading-title {
 	text-transform: initial !important;
+}
+.elementor-element.elementor-element-ee33574 .elementor-heading-title {
 	color: var( --e-global-color-bcd643c ) !important;
 }
 /* USE CASES LIST & SERVICES LIST */
@@ -293,6 +296,9 @@ header .sub-menu.elementor-nav-menu--dropdown .elementor-sub-item {
 	.use-cases-list,
 	.services-list {
 		grid-template-columns: 100%;
+	}
+	.services-list {
+		padding-top: 4rem;
 	}
 }
 
@@ -426,9 +432,107 @@ p > strong > img {
 .services-filter ul li input:not(:checked) {
 	cursor: pointer;
 }
+
+.services-select-title,
+.services-select-container {
+	display: none;
+	pointer-events: none;
+}
+
+.services-select-title h3 {
+	font-weight: 600 !important;
+    font-size: 22px !important;
+	text-align: center;
+	margin-bottom: .5rem;
+}
+.services-select-container,
+.services-select-container .services-option {
+	position: relative;
+}
+.services-select-container .services-selected {
+	color: var(--e-global-color-14547c9 );
+    background-color: var(--e-global-color-bcd643c);
+    padding: 0.5rem 1.5rem;
+    border-style: solid;
+    border-width: 1px 1px 1px 1px;
+    border-color: var(--e-global-color-14547c9 );
+    border-radius: 0.5rem;
+    text-align: center;
+    position: relative;
+    font-size: 1rem;
+	cursor: pointer;
+}
+.services-select-container .services-selected::after {
+	font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    content: "\f078";
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    width: 2rem;
+    justify-content: center;
+    pointer-events: none;
+}
+.services-select-container .services-option-container {
+    position: absolute;
+    z-index: 1;
+    background-color: var(--e-global-color-bcd643c);
+    width: 100%;
+    border-radius: 6px;
+    box-shadow: 0px 0px 40px 0px rgb(0 0 0 / 10%);
+	opacity: 0;
+	pointer-events: none;
+	transition: .2s all ease-in-out;
+	overflow: hidden;
+}
+.services-select-container.active .services-option-container {
+	opacity: 1;
+	pointer-events: all;
+}
+.services-select-container:hover .services-selected {
+	background-color: var(--e-global-color-da6fd8b);
+}
+.services-select-container .services-option:not(:last-of-type) {
+	border-bottom: 1px solid var(--e-global-color-da6fd8b);
+}
+.services-select-container .services-option input {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    opacity: 0;
+}
+.services-select-container .services-option span {
+    display: block;
+	width: 100%;
+	padding: 1rem;
+}
+.services-select-container .services-option input:checked {
+    pointer-events: none;
+}
+.services-select-container .services-option input:checked ~ span {
+    background-color: #E6EBEE;
+    color: var(--e-global-color-14547c9);
+    font-weight: 600;
+}
+
 @media screen and (max-width: 1024px) {
 	.services-filter ul {
 		justify-content: left;
+	}
+	.services-filter {
+		display: none;
+		pointer-events: none;
+	}
+	.services-select-title,
+	.services-select-container {
+		display: block;
+		pointer-events: all;
 	}
 }
 
@@ -606,6 +710,7 @@ p > strong > img {
 	grid-auto-rows: auto auto 1fr;
 	position: relative;
 	gap: 1rem;
+	height: 100%;
 }
 .list-partners .partner-card.contact-card{
 	background-color: var( --e-global-color-da6fd8b );
@@ -759,7 +864,7 @@ img[src="https://unguess.io/wp-content/uploads/2022/01/lsit-check-icon.svg"] {
 	}
 }
 
-/* LIST ICON ELEMENTO MOBILE ALIGN */
+/* LIST ICON ELEMENTOR MOBILE ALIGN */
 @media screen and (max-width: 1024px) {
 	.elementor-widget .elementor-icon-list-item,
 	.elementor-widget .elementor-icon-list-item a {
@@ -768,6 +873,17 @@ img[src="https://unguess.io/wp-content/uploads/2022/01/lsit-check-icon.svg"] {
 	.elementor-widget .elementor-icon-list-item span i {
 		line-height: 1.5rem !important;
 	}
+}
+
+/* LIST ICON CUSTOM */
+.list-icon-custom li > a {
+	align-items: center !important;
+}
+.list-icon-custom li > a span,
+.list-icon-custom li > a svg, 
+.list-icon-custom li > a svg * {
+	color: var( --e-global-color-bcd643c ) !important;
+	fill: var(--e-global-color-bcd643c) !important;
 }
 
 /* LOADER */

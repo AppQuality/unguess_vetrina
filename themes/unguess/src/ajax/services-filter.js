@@ -1,8 +1,29 @@
 const servicesFilterScript = () => {
-    const servicesFilter = document.querySelector('.services-filter');
-    const servicesFilterTriggers = servicesFilter.querySelectorAll('input');
-    const servicesList = document.querySelector('.services-list');
+	const servicesList = document.querySelector('.services-list');
+	
+	const serviceSelectContainer = document.querySelector('.services-select-container');
+	const serviceSelected = document.querySelector('.services-selected');
 
+	const fakeSelectHandler = () => {
+		if ( serviceSelectContainer.classList.contains('active') ) {
+			serviceSelectContainer.classList.remove('active');
+		} else {
+			serviceSelectContainer.classList.add('active');
+		}
+	};
+	
+	const setChecked = (filters, value) => {
+		Array.from(filters).forEach( filter => {
+			if ( filter.value == value ) {
+				filter.checked = true;
+			} else {
+				filter.checked = false;
+			}
+		});
+	}
+
+	serviceSelected.onclick = fakeSelectHandler;
+	
     const serviceFilterHandler = event => {
         jQuery.ajax({
             type: "POST",
@@ -20,15 +41,31 @@ const servicesFilterScript = () => {
             },
             success: response => {
                 servicesList.innerHTML = response.data;
+				serviceSelected.innerText = event.target.dataset.name;
+				if ( event.target.dataset.device == 'desk' ) {
+					setChecked(servicesOptionTriggers, event.target.value);
+				} else {
+					setChecked(servicesFilterTriggers, event.target.value);
+					fakeSelectHandler();
+				}
             },
             error: error => {
                 console.error(error);
             }
         });
     };
+	
+	serviceSelectContainer.onmouseleave = fakeSelectHandler;
 
-    Array.from(servicesFilterTriggers).forEach( trigger => {
-        trigger.onchange = serviceFilterHandler;
-    });
+	const servicesFilter = document.querySelector('.services-filter');
+	const servicesFilterTriggers = servicesFilter.querySelectorAll('input');
+	Array.from(servicesFilterTriggers).forEach( trigger => {
+		trigger.onchange = serviceFilterHandler;
+	});
+
+	const servicesOptionTriggers = document.querySelectorAll('.services-option input');
+	Array.from(servicesOptionTriggers).forEach( trigger => {
+		trigger.onchange = serviceFilterHandler;
+	});
 };
 window.addEventListener('load', servicesFilterScript );
