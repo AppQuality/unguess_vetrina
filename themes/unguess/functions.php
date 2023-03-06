@@ -393,6 +393,9 @@ function unguess_breadcrumbs($atts) {
 	$html .= 	'<a href="' . $href . '">Home</a>';
 	$temp_path = '';
 	foreach ($explodedPath as $key => $value) {
+		$taxonomy = get_queried_object()->taxonomy;
+		$isIndustryOrUseCase = preg_match('/industry|use_case/', $taxonomy );
+		
 		if ( !is_post_type_archive() && !is_tax()
 			|| ( is_post_type_archive() || is_tax() ) && $key < count($explodedPath) - 1 ) {
 			$temp_path .= '/' . $value;
@@ -413,7 +416,9 @@ function unguess_breadcrumbs($atts) {
 		} /*else {
 			$html .= '&nbsp;&nbsp;<i aria-hidden="true" class="fas fa-chevron-right"></i>&nbsp;&nbsp;';
 		}*/
-		if ( get_post_type() == 'services' && $key == count($explodedPath) - 2 ) {
+		
+		if ( get_post_type() == 'services' && $key == count($explodedPath) - 2
+			|| $isIndustryOrUseCase && $key == count($explodedPath) - 3 ) {
 			break;
 		}
 	}
