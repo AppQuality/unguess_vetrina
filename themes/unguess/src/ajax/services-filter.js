@@ -4,8 +4,8 @@ const servicesFilterScript = () => {
 	const serviceSelectContainer = document.querySelector('.services-select-container');
 	const serviceSelected = document.querySelector('.services-selected');
 
-	const fakeSelectHandler = () => {
-		if ( serviceSelectContainer.classList.contains('active') ) {
+	const fakeSelectHandler = (remove = false) => {
+		if ( serviceSelectContainer.classList.contains('active') || remove ) {
 			serviceSelectContainer.classList.remove('active');
 		} else {
 			serviceSelectContainer.classList.add('active');
@@ -22,7 +22,7 @@ const servicesFilterScript = () => {
 		});
 	}
 
-	serviceSelected.onclick = fakeSelectHandler;
+	serviceSelected.onclick = fakeSelectHandler();
 	
     const serviceFilterHandler = event => {
         jQuery.ajax({
@@ -55,7 +55,7 @@ const servicesFilterScript = () => {
         });
     };
 	
-	serviceSelectContainer.onmouseleave = fakeSelectHandler;
+	serviceSelectContainer.onmouseleave = fakeSelectHandler(true);
 
 	const servicesFilter = document.querySelector('.services-filter');
 	const servicesFilterTriggers = servicesFilter.querySelectorAll('input');
