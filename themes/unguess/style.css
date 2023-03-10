@@ -31,9 +31,9 @@ Text Domain:  unguess
     font-style: initial;
     font-size: 20px;
 }
-img.swiper-slide-image.swiper-lazy.swiper-lazy-loaded {
-	max-width: 100px;
-	height: 50px;
+img.swiper-slide-image {
+	max-width: 100px !important;
+	height: 50px !important;
 	object-fit: contain !important;
 }
 .swiper-pagination-bullet {
