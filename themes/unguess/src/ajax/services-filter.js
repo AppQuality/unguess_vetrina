@@ -22,7 +22,7 @@ const servicesFilterScript = () => {
 		});
 	}
 
-	serviceSelected.onclick = fakeSelectHandler();
+	serviceSelected.onclick = () => fakeSelectHandler(false);
 	
     const serviceFilterHandler = event => {
         jQuery.ajax({
@@ -46,7 +46,7 @@ const servicesFilterScript = () => {
 					setChecked(servicesOptionTriggers, event.target.value);
 				} else {
 					setChecked(servicesFilterTriggers, event.target.value);
-					fakeSelectHandler();
+					fakeSelectHandler(false);
 				}
             },
             error: error => {
