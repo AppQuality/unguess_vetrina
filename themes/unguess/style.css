@@ -362,12 +362,12 @@ p > strong > img {
     	min-width: calc(100vw - 4rem);
 	}
 	.list-post-carousel .list-post-scroll-trigger {
-		left: 0;
+		left: -1rem;
 		transform: translateY(-50%) translateX(-50%);
 	}
 	.list-post-carousel .list-post-scroll-trigger:last-of-type {
 		left: unset;
-		right: 0;
+		right: -1rem;
 		transform: translateY(-50%) translateX(50%);
 	}
 }
@@ -478,7 +478,7 @@ p > strong > img {
 }
 .services-select-container .services-option-container {
     position: absolute;
-    z-index: 1;
+    z-index: -1;
     background-color: var(--e-global-color-bcd643c);
     width: 100%;
     border-radius: 6px;
@@ -491,6 +491,7 @@ p > strong > img {
 .services-select-container.active .services-option-container {
 	opacity: 1;
 	pointer-events: all;
+	z-index: 1;
 }
 .services-select-container:hover .services-selected {
 	background-color: var(--e-global-color-da6fd8b);
