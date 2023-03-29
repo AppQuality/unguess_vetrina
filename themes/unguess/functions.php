@@ -9,7 +9,7 @@ function unguess_styles() {
 	wp_enqueue_style( 'unguess-style',
         get_stylesheet_uri(),
 		array(),
-		'1.5.95'
+		'1.5.992'
 	);
 }
 
@@ -430,11 +430,11 @@ add_shortcode( 'service_title', 'service_title' );
 function service_title($atts) {
 	if ( is_post_type_archive() ) {
 		$my_current_lang = apply_filters( 'wpml_current_language', NULL );
-		$title = 'What do you want to UNGUESS?';
+		$title = 'Choose what you want to UNGUESS';
 		if ( !strcmp($my_current_lang, 'it') ) {
-			$title = 'Cosa vuoi scoprire con UNGUESS?';
+			$title = 'Cosa puoi fare con UNGUESS';
 		} else if ( !strcmp($my_current_lang, 'es') ) {
-			$title = '¿qué te gustaría averiguar con UNGUESS?';
+			$title = 'Qué puedes lograr con UNGUESS';
 		}
 	} else {
 		$title = get_the_archive_title();
@@ -451,6 +451,7 @@ function service_title($atts) {
 
 add_shortcode( 'service_excerpt', 'service_excerpt' );
 function service_excerpt($atts) {
+	return; // PROVVISORIO
 	if ( is_post_type_archive() ) {
 		return;
 	}
@@ -459,6 +460,38 @@ function service_excerpt($atts) {
 	$html .= '<div class="elementor-element elementor-element-73d23c33 elementor-widget elementor-widget-text-editor" data-id="73d23c33" data-element_type="widget" data-widget_type="text-editor.default">';
 	$html .= 	'<div class="elementor-widget-container">';
 	$html .= 		get_the_excerpt();
+	$html .= 	'</div>';
+	$html .= '</div>';
+	return $html;
+}
+
+add_shortcode( 'service_button_view_all', 'service_button_view_all' );
+function service_button_view_all($atts) {
+	if ( is_post_type_archive() ) {
+		return;
+	}
+	
+	$my_current_lang = apply_filters( 'wpml_current_language', NULL );
+	$view = 'VIEW ALL SERVICES';
+	$lang_slug = '/services';
+	if ( !strcmp($my_current_lang, 'it') ) {
+		$view = 'VEDI TUTTI I SERVIZI';
+		$lang_slug = '/it/servizi';
+	} else if ( !strcmp($my_current_lang, 'es') ) {
+		$view = 'VER TODOS LOS SERVICIOS';
+		$lang_slug = '/es/servicios';
+	}
+	
+	$html  = '';
+	$html  = '<div class="elementor-element elementor-element-7d256e52 elementor-align-center elementor-widget elementor-widget-button" data-id="7d256e52" data-element_type="widget" data-widget_type="button.default">';
+	$html .= 	'<div class="elementor-widget-container">';
+	$html .= 		'<div class="elementor-button-wrapper">';
+	$html .= 			'<a href="' . $lang_slug . '" class="elementor-button-link elementor-button elementor-size-sm" role="button">';
+	$html .= 				'<span class="elementor-button-content-wrapper">';
+	$html .= 					'<span class="elementor-button-text">' . $view . '</span>';
+	$html .= 				'</span>';
+	$html .= 			'</a>';
+	$html .= 		'</div>';
 	$html .= 	'</div>';
 	$html .= '</div>';
 	return $html;
@@ -634,7 +667,7 @@ function services_list() {
 		'services-filter', 
 		get_stylesheet_directory_uri() . '/src/ajax/services-filter.js',
 		array(),
-		'1.0.34'
+		'1.0.36'
 	);
 	wp_localize_script( 
 		'services-filter', 
