@@ -9,7 +9,7 @@ function unguess_styles() {
 	wp_enqueue_style( 'unguess-style',
         get_stylesheet_uri(),
 		array(),
-		'1.5.992'
+		'1.5.993'
 	);
 }
 
@@ -43,7 +43,28 @@ function unguess_scripts($type) {
 				array(),
 				'1.0.1'
 			);
+		case 'custom-popup':
+			wp_enqueue_script(
+				'custom-popup',
+				get_stylesheet_directory_uri() . '/src/components/custom-popup.js',
+				array(),
+				'1.0.0'
+			);
 	}
+}
+
+add_action( 'wp_head', 'custom_scripts' );
+function custom_scripts() {
+	$current_url = basename(get_permalink());
+	if ( $current_url == 'unguess.io' || $current_url == 'it' || $current_url == 'es' ) {
+		wp_enqueue_script(
+			'home-select-industry',
+			get_stylesheet_directory_uri() . '/src/components/home-select-industry.js',
+			array(),
+			'1.0.0'
+		);
+	}
+	do_action( 'wp_enqueue_scripts', 'custom-popup' );
 }
 
 // ENABLE SVG
